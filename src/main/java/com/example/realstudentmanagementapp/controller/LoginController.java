@@ -3,12 +3,14 @@ package com.example.realstudentmanagementapp.controller;
 import com.example.realstudentmanagementapp.model.Student;
 import com.example.realstudentmanagementapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 
+@Controller
 public class LoginController {
 
     private StudentService studentService;
@@ -37,10 +39,13 @@ public class LoginController {
         student1 = studentService.getStudentByEmailAndPassword(student.getEmail(), student.getPassword());
         if (student1 == null) {
             model.addAttribute("invalid", "Incorrect password");
-            return "redirect:/login";
+            return "login";
         }
+        Student student2 = new Student();
         httpSession.setAttribute("user", student1);
-        return "redirect:/students";
+        model.addAttribute("students", studentService.getAllStudents());
+        model.addAttribute("student", student);
+        return "students";
     }
 
 }

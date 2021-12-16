@@ -51,7 +51,7 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public Student getStudentByEmailAndPassword(String email, String password) {
-        return studentRepository.getStudentByEmailAndPassword(email);
+        return studentRepository.getStudentByEmailAndPassword(email, password);
     }
 
 }

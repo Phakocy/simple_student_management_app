@@ -25,21 +25,37 @@
 
             <div class="shadow p-3 mb-5 bg-body rounded">
 
-                <form class="" th:action="@{/login}" method="post" th:object="${user}">
-                    <input class="form-control mb-3" type="text" name="" th:field="*{email}" placeholder="Email Address">
-                    <input class="form-control" type="password" name="" th:field="*{password}" placeholder="Password">
+                <form class="" action="/login" method="post">
+                    <input class="form-control mb-3" type="text" name= "email" placeholder="Email Address">
+                    <input class="form-control" type="password" name= "password" placeholder="Password">
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary btn-lg">Log In</button>
                     </div>
                 </form>
 
-                <form class="" th:action="@{/register}" method="get">
+                <form class="" action="/students/register" method="get">
                     <p class="text-center mt-2"><a href="#">Forgotten password?</a></p>
                     <div class="divider"></div>
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-green btn-lg mt-3 mb-3">Create New Account</button>
                     </div>
                 </form>
+
+<!--                <form class="" th:action="@{/login}" method="post" th:object="${user}">-->
+<!--                    <input class="form-control mb-3" type="text" name="" th:field="*{email}" placeholder="Email Address">-->
+<!--                    <input class="form-control" type="password" name="" th:field="*{password}" placeholder="Password">-->
+<!--                    <div class="d-grid gap-2 mt-3">-->
+<!--                        <button type="submit" class="btn btn-primary btn-lg">Log In</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+
+<!--                <form class="" th:action="@{/register}" method="get">-->
+<!--                    <p class="text-center mt-2"><a href="#">Forgotten password?</a></p>-->
+<!--                    <div class="divider"></div>-->
+<!--                    <div class="d-grid gap-2 mt-3">-->
+<!--                        <button type="submit" class="btn btn-green btn-lg mt-3 mb-3">Create New Account</button>-->
+<!--                    </div>-->
+<!--                </form>-->
 
             </div>
 

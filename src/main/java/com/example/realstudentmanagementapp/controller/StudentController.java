@@ -36,7 +36,7 @@ public class StudentController {
         newStudent.setDateOfBirth(student.getDateOfBirth());
         newStudent.setGender(student.getGender());
         studentServiceImp.createStudent(newStudent);
-        return "redirect:/students";
+        return "redirect:/login";
     }
 
     @GetMapping(value = "/students")
