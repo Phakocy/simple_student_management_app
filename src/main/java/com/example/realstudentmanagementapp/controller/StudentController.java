@@ -36,36 +36,42 @@ public class StudentController {
         newStudent.setDateOfBirth(student.getDateOfBirth());
         newStudent.setGender(student.getGender());
         studentServiceImp.createStudent(newStudent);
-        return "redirect:/login";
+        return "login";
     }
 
     @GetMapping(value = "/students")
     public String getAllStudents(Model model){
-        model.addAttribute("All students", studentServiceImp.getAllStudents());
-        return "registration_form";
+        Student student = new Student();
+        model.addAttribute("students", studentServiceImp.getAllStudents());
+        model.addAttribute("student", student);
+        return "students";
     }
 
-    @GetMapping(value = "/students/{id}")
-    public String getStudentById (@PathVariable Long id){
-        studentServiceImp.getStudentById(id);
-        return "redirect:/students";
+    @GetMapping(value = "/students/edit/{id}")
+    public String getStudentById (@PathVariable (value = "id") Long id, Model model){
+        model.addAttribute("student", studentServiceImp.getStudentById(id));
+        return "edit_student";
     }
 
-    @PutMapping("/students/edit/{id}")
-    public String updateStudent(@PathVariable Long id, Student student, Model model){
-
+    @PostMapping("/students/edit/{id}")
+    public String updateStudent(@PathVariable (value = "id") Long id, @ModelAttribute Student student){
+        System.out.println("Update request: " + student);
         Student registeredStudent = studentServiceImp.getStudentById(id);
-        registeredStudent.setId(id);
-        registeredStudent.setFirstName(student.getFirstName());
-        registeredStudent.setLastName(student.getLastName());
-        registeredStudent.setEmail(student.getEmail());
 
-        studentServiceImp.updateStudent(registeredStudent);
+        if (registeredStudent != null) {
+            registeredStudent.setFirstName(student.getFirstName());
+            registeredStudent.setLastName(student.getLastName());
+            registeredStudent.setEmail(student.getEmail());
+            registeredStudent.setDateOfBirth(student.getDateOfBirth());
+
+            studentServiceImp.updateStudent(registeredStudent);
+            System.out.println("Student of id: " + registeredStudent.getId() + " is updated.");
+        }
         return "redirect:/students";
     }
 
-    @DeleteMapping("/students/{id}")
-    public String removeStudent(@PathVariable Long id){
+    @GetMapping("/students/delete/{id}")
+    public String removeStudent(@PathVariable (value = "id") Long id){
         studentServiceImp.removeStudentById(id);
         return "redirect:/students";
     }

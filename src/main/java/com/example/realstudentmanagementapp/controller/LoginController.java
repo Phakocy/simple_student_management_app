@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
@@ -30,8 +31,9 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public String login(HttpSession httpSession, Student student, Model model) {
+    public String login(HttpSession httpSession, @ModelAttribute Student student, Model model) {
         Student student1 = studentService.getStudentByEmail(student.getEmail()); //validation
+        System.out.println("Register request: " + student);
         if (student1 == null) {
             model.addAttribute("invalid", "User does not exist. Check login details or register.");
             return "login";
@@ -41,11 +43,10 @@ public class LoginController {
             model.addAttribute("invalid", "Incorrect password");
             return "login";
         }
-        Student student2 = new Student();
         httpSession.setAttribute("user", student1);
         model.addAttribute("students", studentService.getAllStudents());
         model.addAttribute("student", student);
-        return "students";
+        return "redirect:/students";
     }
 
 }
